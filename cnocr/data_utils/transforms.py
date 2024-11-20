@@ -138,14 +138,13 @@ class Bitmap(ImageOnlyTransform):
         return img
 
 
-class RandomStretchAug(alb.Resize):
+class RandomStretchAug(ImageOnlyTransform):
     """保持高度不变的情况下，对图像的宽度进行随机拉伸"""
+
     def __init__(
-        self, min_ratio=0.9, max_ratio=1.1, min_width=8, always_apply=False, p=1
-    ):
-        super(RandomStretchAug, self).__init__(
-            height=0, width=0, always_apply=always_apply, p=p
-        )
+            self, min_ratio=0.9, max_ratio=1.1, min_width=8, always_apply=False, p=1
+        ):
+        super().__init__(always_apply=always_apply, p=p)
         self.min_width = min_width
         self.min_ratio = min_ratio
         self.max_ratio = max_ratio
@@ -171,7 +170,7 @@ class CustomRandomCrop(ImageOnlyTransform):
             always_apply (bool): Whether to always apply the crop. Defaults to False.
             p (float): The probability of applying the crop. Defaults to 1.0.
         """
-        super(CustomRandomCrop, self).__init__(always_apply, p)
+        super().__init__(always_apply=always_apply, p=p)
         self.crop_size = crop_size
 
     def cal_params(self, img):
@@ -210,7 +209,7 @@ class TransparentOverlay(ImageOnlyTransform):
     def __init__(
         self, max_height_ratio, max_width_ratio, alpha, always_apply=False, p=1.0
     ):
-        super(TransparentOverlay, self).__init__(always_apply, p)
+        super().__init__(always_apply=always_apply, p=p)
         self.max_height_ratio = max_height_ratio
         self.max_width_ratio = max_width_ratio
         self.alpha = alpha
@@ -316,9 +315,9 @@ class TransformWrapper(object):
 
 _train_alb_transform = alb.Compose(
     [
-        CustomRandomCrop((8, 10), p=0.8),
+        CustomRandomCrop(crop_size=(8, 10), always_apply=False, p=0.8),
         alb.OneOf([Erosion((2, 3)), Dilation((2, 3))], p=0.1),
-        TransparentOverlay(1.0, 0.1, alpha=0.4, p=0.2),  # 半透明的矩形框覆盖
+        TransparentOverlay(1.0, 0.1, alpha=0.4, always_apply=False, p=0.2),  # 半透明的矩形框覆盖
         alb.Affine(shear={"x": (0, 3), "y": (-3, 0)}, cval=(255, 255, 255), p=0.03),
         alb.ShiftScaleRotate(
             shift_limit_x=(0, 0.04),
@@ -382,9 +381,9 @@ train_transform = TransformWrapper(_train_alb_transform)
 
 _ft_alb_transform = alb.Compose(
     [
-        CustomRandomCrop((4, 4), p=0.8),
+        CustomRandomCrop(crop_size=(4, 4), always_apply=False, p=0.8),
         alb.OneOf([Erosion((2, 3)), Dilation((2, 3))], p=0.1),
-        TransparentOverlay(1.0, 0.1, alpha=0.4, p=0.2),  # 半透明的矩形框覆盖
+        TransparentOverlay(1.0, 0.1, alpha=0.4, always_apply=False, p=0.2),  # 半透明的矩形框覆盖
         alb.RandomBrightnessContrast(0.1, 0.1, True, p=0.1),
         alb.ImageCompression(95, p=0.3),
         alb.GaussNoise(20, p=0.2),
@@ -413,7 +412,7 @@ ft_transform = TransformWrapper(_ft_alb_transform)
 
 _test_alb_transform = alb.Compose(
     [
-        CustomRandomCrop((6, 8), p=0.8),
+        CustomRandomCrop(crop_size=(6, 8), p=0.8),
         ToSingleChannelGray(always_apply=True),
         CustomNormalize(always_apply=True),
         # alb.Normalize(0.456045, 0.224567, always_apply=True),
