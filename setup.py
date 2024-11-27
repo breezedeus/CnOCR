@@ -47,11 +47,12 @@ required = [
     "torchmetrics",
     "pillow>=5.3.0",
     "onnx",
-    "cnstd>=1.2.3.4",
+    "cnstd>=1.2.5",
+    "rapidocr_onnxruntime<1.4",
 ]
 extras_require = {
-    "ort-cpu": ["onnxruntime"],
-    "ort-gpu": ["onnxruntime-gpu"],
+    "ort-cpu": ["onnxruntime", "rapidocr_onnxruntime<1.4"],
+    "ort-gpu": ["onnxruntime-gpu", "rapidocr_onnxruntime<1.4"],
     "serve": ["uvicorn[standard]", "fastapi", "python-multipart", "pydantic"],
     "dev": ["albumentations", "pip-tools", "pytest", "datasets[vision]"],
 }
