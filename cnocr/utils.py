@@ -23,12 +23,11 @@ import os
 from pathlib import Path
 import logging
 import platform
-import zipfile
 import requests
 from typing import Union, Any, Tuple, List, Optional, Dict
 
 from tqdm import tqdm
-from PIL import Image
+from PIL import Image, ImageOps
 import cv2
 import numpy as np
 import torch
@@ -272,16 +271,18 @@ def read_img(path: Union[str, Path], gray=True) -> np.ndarray:
         * when `gray==True`, return a gray image, with dim [height, width, 1], with values range from 0 to 255
         * when `gray==False`, return a color image, with dim [height, width, 3], with values range from 0 to 255
     """
+    try:
+        img = Image.open(path)
+        img = ImageOps.exif_transpose(img)  # 识别旋转后的图片（pillow不会自动识别）
+    except Exception as e:
+        raise FileNotFoundError(f'Error loading image: {path}')
+        
     if gray:
-        img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-        if img is None:
-            raise FileNotFoundError(f'Error loading image: {path}')
-        return np.expand_dims(img, -1)
+        img = img.convert('L')
+        return np.expand_dims(np.array(img), -1)
     else:
-        img = cv2.imread(path)
-        if img is None:
-            raise FileNotFoundError(f'Error loading image: {path}')
-        return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = img.convert('RGB')
+        return np.array(img)
 
 
 def save_img(img: Union[Tensor, np.ndarray], path):
