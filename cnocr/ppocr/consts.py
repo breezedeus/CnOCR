@@ -63,7 +63,7 @@ MODEL_LABELS_FILE_DICT = {
     },
     ("en_PP-OCRv4", "onnx"): {
         "recognizer": "RapidRecognizer",
-        "repo": "breezedeus/cnocr-ppocr-en_PP-OCRv3",
+        "repo": "breezedeus/cnocr-ppocr-en_PP-OCRv4",
     },
     ("ch_PP-OCRv4", "onnx"): {
         "recognizer": "RapidRecognizer",
