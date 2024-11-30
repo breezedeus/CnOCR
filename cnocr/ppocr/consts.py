@@ -35,9 +35,33 @@ MODEL_LABELS_FILE_DICT = {
         "vocab_fp": VOCAB_DIR / "en_dict.txt",
         "url": "en_number_mobile_v2.0_rec_infer-onnx.zip",
     },
+    ("chinese_cht_PP-OCRv3", "onnx"): {
+        "vocab_fp": VOCAB_DIR / "chinese_cht_dict.txt",  # 繁体中文
+        "url": "chinese_cht_PP-OCRv3_rec_infer-onnx.zip",
+    },
+    ("japan_PP-OCRv3", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-japan_PP-OCRv3",
+    },
+    ("korean_PP-OCRv3", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-korean_PP-OCRv3",
+    },
+    ("latin_PP-OCRv3", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-latin_PP-OCRv3",
+    },
+    ("arabic_PP-OCRv3", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-arabic_PP-OCRv3",
+    },
     ("en_PP-OCRv3", "onnx"): {
         "vocab_fp": VOCAB_DIR / "en_dict.txt",  # 英文
         "url": "en_PP-OCRv3_rec_infer-onnx.zip",
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-en_PP-OCRv3",
+    },
+    ("en_PP-OCRv4", "onnx"): {
         "recognizer": "RapidRecognizer",
         "repo": "breezedeus/cnocr-ppocr-en_PP-OCRv3",
     },

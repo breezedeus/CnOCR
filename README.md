@@ -433,9 +433,14 @@ print(ocr_out)
 | ch_PP-OCRv4_server                                           | X            | √         | ppocr        | 86 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv3                                                  | X            | √         | ppocr        | 10 M         | 简体中文、英文、数字                | √                    |
 | ch_ppocr_mobile_v2.0                                         | X            | √         | ppocr        | 4.2 M        | 简体中文、英文、数字                | √                    |
+| en_PP-OCRv4                                                  | X            | √         | ppocr        | 8.6 M        | **英文**、数字                      | √                    |
 | en_PP-OCRv3                                                  | X            | √         | ppocr        | 8.5 M        | **英文**、数字                      | √                    |
 | en_number_mobile_v2.0                                        | X            | √         | ppocr        | 1.8 M        | **英文**、数字                      | √                    |
 | chinese_cht_PP-OCRv3                                         | X            | √         | ppocr        | 11 M         | **繁体中文**、英文、数字            | X                    |
+| japan_PP-OCRv3                                               | X            | √         | ppocr        | 9.6 M         | **日文**、英文、数字                | √                    |
+| korean_PP-OCRv3                                              | X            | √         | ppocr        | 9.4 M         | **韩文**、英文、数字                | √                    |
+| latin_PP-OCRv3                                               | X            | √         | ppocr        | 8.6 M         | **拉丁文**、英文、数字              | √                    |
+| arabic_PP-OCRv3                                              | X            | √         | ppocr        | 8.6 M         | **阿拉伯文**、英文、数字            | √                    |
 
 
 

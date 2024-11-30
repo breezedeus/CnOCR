@@ -92,7 +92,12 @@ CnOCR 的自有模型从结构上可以分为两阶段：第一阶段是获得oc
 | ch_PP-OCRv3           | X            | √         | 简体中文、英文、数字     | √                    | 10 M         |
 | ch_ppocr_mobile_v2.0  | X            | √         | 简体中文、英文、数字     | √                    | 4.2 M        |
 | en_PP-OCRv3           | X            | √         | **英文**、数字           | √                    | 8.5 M        |
+| en_PP-OCRv4           | X            | √         | **英文**、数字           | √                    | 8.6 M        |
 | en_number_mobile_v2.0 | X            | √         | **英文**、数字           | √                    | 1.8 M        |
 | chinese_cht_PP-OCRv3  | X            | √         | **繁体中文**、英文、数字 | X                    | 11 M         |
+| japan_PP-OCRv3        | X            | √         | **日文**、英文、数字     | √                    | 9.6 M         |
+| korean_PP-OCRv3       | X            | √         | **韩文**、英文、数字     | √                    | 9.4 M         |
+| latin_PP-OCRv3        | X            | √         | **拉丁文**、英文、数字   | √                    | 8.6 M         |
+| arabic_PP-OCRv3       | X            | √         | **阿拉伯文**、英文、数字 | √                    | 8.6 M         |
 
 更多模型可参考 [PaddleOCR/models_list.md](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/doc/doc_ch/models_list.md) 。如有其他外语（如日、韩等）识别需求，可在 **知识星球** [**CnOCR/CnSTD私享群**](https://t.zsxq.com/FEYZRJQ) 中向作者提出建议。
