@@ -22,6 +22,8 @@
 from datasets import Dataset, Image
 import numpy as np
 import torch
+import os
+from pathlib import Path
 
 from .consts import IMG_STANDARD_HEIGHT
 from .utils import read_tsv_file, pad_img_seq
@@ -39,6 +41,25 @@ def preprocess(img):
     target_w = max(int(ori_width / ratio), min_width)
     target_w_h = (target_w, IMG_STANDARD_HEIGHT)
     return img.resize(target_w_h)
+
+
+def apply_transforms(img, transforms):
+    """Apply transforms to a single image."""
+    img = np.array(img)
+    if img.ndim == 2:
+        img = np.expand_dims(img, 0)
+    return transforms(torch.from_numpy(img))
+
+
+def create_transform_func(transforms):
+    """Create a transform function that can be pickled."""
+    def transform_func(examples):
+        outs = []
+        for img in examples['image']:
+            outs.append(apply_transforms(img, transforms))
+        examples['transformed_image'] = outs
+        return examples
+    return transform_func
 
 
 def gen_dataset(
@@ -80,18 +101,7 @@ def gen_dataset(
     dataset = dataset.map(map_func, batched=True, num_proc=num_workers)
 
     if transforms is not None:
-
-        def transform_func(examples):
-            outs = []
-            for img in examples['image']:
-                img = np.array(img)
-                if img.ndim == 2:
-                    img = np.expand_dims(img, 0)
-                outs.append(transforms(torch.from_numpy(img)))
-            examples['transformed_image'] = outs
-            return examples
-
-        dataset.set_transform(transform_func)
+        dataset.set_transform(create_transform_func(transforms))
     return dataset
 
 

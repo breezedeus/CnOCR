@@ -129,7 +129,7 @@ def main():
     det_models.append(('naive_det', 'onnx'))
     det_models.sort()
     det_model_name = st.sidebar.selectbox(
-        '选择检测模型', det_models, index=det_models.index(('ch_PP-OCRv3_det', 'onnx'))
+        '选择检测模型', det_models, index=det_models.index(('ch_PP-OCRv4_det', 'onnx'))
     )
 
     all_models = list(REC_AVAILABLE_MODELS.all_models())

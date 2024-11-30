@@ -335,6 +335,18 @@ class AvailableModels(object):
             )
             return CN_VOCAB_FP
 
+    def get_value(self, model_name, model_backend, key) -> Optional[Any]:
+        if (model_name, model_backend) in self.CNOCR_MODELS:
+            info = self.CNOCR_MODELS[(model_name, model_backend)]
+        elif (model_name, model_backend) in self.OUTER_MODELS:
+            info = self.OUTER_MODELS[(model_name, model_backend)]
+        else:
+            logger.warning(
+                'no url is found for model %s' % ((model_name, model_backend),)
+            )
+            return None
+        return info.get(key)
+
     def get_epoch(self, model_name, model_backend) -> Optional[int]:
         if (model_name, model_backend) in self.CNOCR_MODELS:
             return self.CNOCR_MODELS[(model_name, model_backend)]['epoch']

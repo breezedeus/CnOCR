@@ -35,7 +35,7 @@ from .consts import AVAILABLE_MODELS as REC_AVAILABLE_MODELS
 from .utils import data_dir, read_img
 from .line_split import line_split
 from .recognizer import Recognizer
-from .ppocr import PPRecognizer, PP_SPACE
+from .ppocr import PPRecognizer, RapidRecognizer, PP_SPACE
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,7 @@ class CnOcr(object):
         self,
         rec_model_name: str = 'densenet_lite_136-gru',
         *,
-        det_model_name: str = 'ch_PP-OCRv3_det',
+        det_model_name: str = 'ch_PP-OCRv4_det',
         cand_alphabet: Optional[Union[Collection, str]] = None,
         context: str = 'cpu',  # ['cpu', 'gpu', 'cuda']
         rec_model_fp: Optional[str] = None,
@@ -83,7 +83,7 @@ class CnOcr(object):
 
         Args:
             rec_model_name (str): 识别模型名称。默认为 `densenet_lite_136-gru`
-            det_model_name (str): 检测模型名称。默认为 `ch_PP-OCRv3_det`
+            det_model_name (str): 检测模型名称。默认为 `ch_PP-OCRv4_det`
             cand_alphabet (Optional[Union[Collection, str]]): 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围
             context (str): 'cpu', or 'gpu'。表明预测时是使用CPU还是GPU。默认为 `cpu`。
                 此参数仅在 `model_backend=='pytorch'` 时有效。
@@ -143,7 +143,8 @@ class CnOcr(object):
         if self.rec_space == REC_AVAILABLE_MODELS.CNOCR_SPACE:
             rec_cls = Recognizer
         elif self.rec_space == PP_SPACE:
-            rec_cls = PPRecognizer
+            rec_name = REC_AVAILABLE_MODELS.get_value(rec_model_name, rec_model_backend, 'recognizer')
+            rec_cls = RapidRecognizer if rec_name == 'RapidRecognizer' else PPRecognizer
             if rec_vocab_fp is not None:
                 logger.warning('param `vocab_fp` is invalid for %s models' % PP_SPACE)
         else:

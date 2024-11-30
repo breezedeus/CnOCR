@@ -38,6 +38,16 @@
 ---
 </div>
 
+### [Update 2024.11.28]: Release of V2.3.1
+
+Major Changes:
+
+* Based on RapidOCR, integrate the latest version of PPOCRv4 OCR models, providing more model options
+  * Add support for PP-OCRv4 recognition models, including standard and server versions
+* Modify the implementation of reading files to support Chinese paths on Windows
+* Fix bug: When using multiple processes, the transform_func cannot be serialized
+* Fix bug: Compatible with albumentations=1.4.*
+
 ### [Update 2023.12.24]: Release of V2.3
 
 Major Changes:
@@ -300,13 +310,13 @@ Refer to [CnSTD](https://github.com/breezedeus/CnSTD?tab=readme-ov-file#%E5%B7%B
 | **en_PP-OCRv3_det**                                          | X            | √         | ppocr        | 2.3 M        | **English**、Numbers  | √                    |
 | db_shufflenet_v2                                             | √            | X         | cnocr        | 18 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | **db_shufflenet_v2_small**                                   | √            | X         | cnocr        | 12 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
-| [db_shufflenet_v2_tiny](https://mp.weixin.qq.com/s/fHPNoGyo72EFApVhEgR6Nw) | √            | X         | cnocr        | 7.5 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_mobilenet_v3                                              | √            | X         | cnocr        | 16 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
+| ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
+| ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
-| ch_PP-OCRv2_det                                              | X            | √         | ppocr        | 2.2 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 
 
 
@@ -342,12 +352,18 @@ For more details, see: [Available Models](https://cnocr.readthedocs.io/zh-cn/sta
 | **number-densenet_lite_136-fc** 🆕                                                                                    | √               | √  | cnocr        | 2.7 M        | **Pure Numeric** (contains only the ten digits `0~9`) | X                    |
 | **number-densenet_lite_136-gru**  🆕 <br /> ([Planet Members](https://t.zsxq.com/FEYZRJQ) Only)                       | √               | √         | cnocr        | 5.5 M       | **Pure Numeric** (contains only the ten digits `0~9`)  | X                    |
 | **number-densenet_lite_666-gru_large** 🆕 <br /> ([Purchase Link](https://ocr.lemonsqueezy.com))                      | √               | √         | cnocr        | 56 M      | **Pure Numeric** (contains only the ten digits `0~9`)  | X                    |
-| **en_PP-OCRv3**                                                                                                       | X               | √         | ppocr        | 8.5 M        | **English**、Numbers | √                    |
-| **en_number_mobile_v2.0**                                                                                             | X               | √         | ppocr        | 1.8 M        | **English**、Numbers | √                    |
-| **chinese_cht_PP-OCRv3**                                                                                              | X               | √         | ppocr        | 11 M         | **Traditional Chinese**, English, Numbers | X     |
-| densenet_lite_136-gru                                                                                                 | √               | √         | cnocr        | 12 M         | Simplified Chinese, English, Numbers | X                    |
-| ch_PP-OCRv3                                                                                                           | X               | √         | ppocr        | 10 M         | Simplified Chinese, English, Numbers | √                    |
-| ch_ppocr_mobile_v2.0                                                                                                  | X               | √         | ppocr        | 4.2 M        | Simplified Chinese, English, Numbers | √                    |
+| ch_PP-OCRv4                                                  | X            | √         | ppocr        | 10 M         | Simplified Chinese, English, Numbers  | √                    |
+| ch_PP-OCRv4_server                                           | X            | √         | ppocr        | 86 M         | Simplified Chinese, English, Numbers | √                    |
+| ch_PP-OCRv3                                                 | X               | √         | ppocr        | 10 M         | Simplified Chinese, English, Numbers | √                    |
+| ch_ppocr_mobile_v2.0                                        | X               | √         | ppocr        | 4.2 M        | Simplified Chinese, English, Numbers | √                    |
+| **en_PP-OCRv3**                                             | X               | √         | ppocr        | 8.5 M        | **English**、Numbers | √                    |
+| **en_PP-OCRv4**                                             | X            | √         | ppocr        | 8.6 M        | **English**、Numbers | √                    |
+| **en_number_mobile_v2.0**                                   | X               | √         | ppocr        | 1.8 M        | **English**、Numbers | √                    |
+| **chinese_cht_PP-OCRv3**                                    | X               | √         | ppocr        | 11 M         | **Traditional Chinese**, English, Numbers | X     |
+| **japan_PP-OCRv3**                                                                                                    | X               | √         | ppocr        | 9.6 M         | **Japanese**, English, Numbers | √     |
+| **korean_PP-OCRv3**                                                                                                   | X               | √         | ppocr        | 9.4 M         | **Korean**, English, Numbers | √     |
+| **latin_PP-OCRv3**                                                                                                    | X               | √         | ppocr        | 8.6 M         | **Latin**, English, Numbers | √     |
+| **arabic_PP-OCRv3**                                                                                                   | X               | √         | ppocr        | 8.6 M         | **Arabic**, English, Numbers | √     |
 
 
 ## Future work

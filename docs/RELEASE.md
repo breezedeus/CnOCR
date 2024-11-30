@@ -1,5 +1,37 @@
 # Release Notes
 
+### Update 2024.11.30：发布 V2.3.1
+
+主要变更：
+
+* 基于 RapidOCR 集成 PPOCRv4 最新版 OCR 模型，提供更多的模型选择
+  * 新增支持 PP-OCRv4 检测和识别模型，包括标准版和服务器版
+  * 新增多语言OCR模型支持：
+    * chinese_cht_PP-OCRv3：繁体中文识别
+    * japan_PP-OCRv3：日文识别
+    * korean_PP-OCRv3：韩文识别
+    * latin_PP-OCRv3：拉丁文识别
+    * arabic_PP-OCRv3：阿拉伯文识别
+    * en_PP-OCRv4：英文识别（v4版本）
+* 修改读文件实现方式，支持 Windows 的中文路径
+* 修复Bug：当使用多个进程时，transform_func 无法序列化
+* 修复Bug：与 albumentations=1.4.* 兼容
+
+Major Changes:
+
+* Based on RapidOCR, integrate the latest version of PPOCRv4 OCR models, providing more model options
+  * Add support for PP-OCRv4 detection and recognition models, including standard and server versions
+  * Add multilingual OCR model support:
+    * chinese_cht_PP-OCRv3: Traditional Chinese recognition
+    * japan_PP-OCRv3: Japanese recognition
+    * korean_PP-OCRv3: Korean recognition
+    * latin_PP-OCRv3: Latin recognition
+    * arabic_PP-OCRv3: Arabic recognition
+    * en_PP-OCRv4: English recognition (v4 version)
+* Modify the implementation of reading files to support Chinese paths on Windows
+* Fix bug: When using multiple processes, the transform_func cannot be serialized
+* Fix bug: Compatible with albumentations=1.4.*
+
 ### Update 2024.06.22：发布 V2.3.0.3
 
 主要变更：

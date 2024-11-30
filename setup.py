@@ -47,7 +47,8 @@ required = [
     "torchmetrics",
     "pillow>=5.3.0",
     "onnx",
-    "cnstd>=1.2.3.4",
+    "cnstd>=1.2.5.1",
+    "rapidocr_onnxruntime<1.4",
 ]
 extras_require = {
     "ort-cpu": ["onnxruntime"],

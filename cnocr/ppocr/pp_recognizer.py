@@ -73,6 +73,7 @@ class PPRecognizer(Recognizer):
 
         vocab_fp = AVAILABLE_MODELS.get_vocab_fp(self._model_name, self._model_backend)
         self._assert_and_prepare_model_files(model_fp, root)
+        logger.info('use model: %s' % self._model_fp)
         postprocess_params = {
             'name': 'CTCLabelDecode',
             'character_dict_path': vocab_fp,
@@ -114,7 +115,6 @@ class PPRecognizer(Recognizer):
             )  # download the .zip file and unzip
 
         self._model_fp = model_fp
-        logger.info('use model: %s' % self._model_fp)
 
     def resize_norm_img(self, img, max_wh_ratio):
         """

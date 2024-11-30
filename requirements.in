@@ -10,9 +10,10 @@ numpy
 pytorch-lightning>=2.0.0
 wandb
 datasets[vision]
-albumentations
+albumentations<1.4.0
 torchmetrics>=0.9.0
 pillow>=5.3.0
 onnx
 onnxruntime
-cnstd>=1.2.3.6
+rapidocr_onnxruntime<1.4
+cnstd>=1.2.5.1
