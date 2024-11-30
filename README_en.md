@@ -38,7 +38,7 @@
 ---
 </div>
 
-### [Update 2024.11.28]: Release of V2.3.1
+### [Update 2024.11.30]: Release of V2.3.1
 
 Major Changes:
 
