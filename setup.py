@@ -51,8 +51,8 @@ required = [
     "rapidocr_onnxruntime<1.4",
 ]
 extras_require = {
-    "ort-cpu": ["onnxruntime", "rapidocr_onnxruntime<1.4"],
-    "ort-gpu": ["onnxruntime-gpu", "rapidocr_onnxruntime<1.4"],
+    "ort-cpu": ["onnxruntime"],
+    "ort-gpu": ["onnxruntime-gpu"],
     "serve": ["uvicorn[standard]", "fastapi", "python-multipart", "pydantic"],
     "dev": ["albumentations", "pip-tools", "pytest", "datasets[vision]"],
 }
