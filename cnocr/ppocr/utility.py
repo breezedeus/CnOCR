@@ -21,7 +21,6 @@
 import argparse
 import os
 import sys
-import imghdr
 import math
 import logging
 
@@ -510,15 +509,28 @@ def get_image_file_list(img_file):
         raise Exception("not found any img file in {}".format(img_file))
 
     img_end = {'jpg', 'bmp', 'png', 'jpeg', 'rgb', 'tif', 'tiff', 'gif', 'GIF'}
-    if os.path.isfile(img_file) and imghdr.what(img_file) in img_end:
-        imgs_lists.append(img_file)
+    
+    if os.path.isfile(img_file):
+        try:
+            with Image.open(img_file) as img:
+                if img.format and img.format.lower() in [ext.lower() for ext in img_end]:
+                    imgs_lists.append(img_file)
+        except Exception:
+            pass
     elif os.path.isdir(img_file):
         for single_file in os.listdir(img_file):
             file_path = os.path.join(img_file, single_file)
-            if os.path.isfile(file_path) and imghdr.what(file_path) in img_end:
-                imgs_lists.append(file_path)
+            if os.path.isfile(file_path):
+                try:
+                    with Image.open(file_path) as img:
+                        if img.format and img.format.lower() in [ext.lower() for ext in img_end]:
+                            imgs_lists.append(file_path)
+                except Exception:
+                    pass
+    
     if len(imgs_lists) == 0:
         raise Exception("not found any img file in {}".format(img_file))
+    
     imgs_lists = sorted(imgs_lists)
     return imgs_lists
 
