@@ -15,7 +15,7 @@ Options:
   -b, --rec-model-backend [pytorch|onnx]
                                   识别模型类型。默认值为 `onnx`
   -v, --rec-vocab-fp TEXT         识别模型使用的词表。默认取值为 `None` 表示使用系统设定的词表
-  -d, --det-model-name TEXT       检测模型名称。默认值为 ch_PP-OCRv3_det
+  -d, --det-model-name TEXT       检测模型名称。默认值为 ch_PP-OCRv5_det
   --det-model-backend [pytorch|onnx]
                                   检测模型类型。默认值为 `onnx`
   -p, --pretrained-model-fp TEXT  识别模型使用训练好的模型。默认为 `None`，表示使用系统自带的预训练模型

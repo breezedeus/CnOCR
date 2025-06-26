@@ -39,6 +39,14 @@
 ---
 </div>
 
+### Update 2025.06.26：发布 V2.3.2
+
+主要变更：
+
+* 集成 PPOCRv5 最新版 OCR 模型
+  * 新增支持 PP-OCRv5 识别模型：`ch_PP-OCRv5` 和 `ch_PP-OCRv5_server`
+
+
 ### [Update 2024.11.30]：发布 V2.3.1
 
 主要变更：
@@ -390,6 +398,8 @@ print(ocr_out)
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det                                              | X            | √         | ppocr        | 4.6 M        | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | 简体中文、繁体中文、英文、数字 | √                    |
@@ -423,12 +433,14 @@ print(ocr_out)
 | **densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
 | **scene-densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
 | **doc-densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
-| **densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104812055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
-| **scene-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104815055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
-| **doc-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104820055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11884138&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **scene-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11883935&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **doc-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11883965&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
 | **number-densenet_lite_136-fc** 🆕                            | √            | √         | cnocr        | 2.7 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
 | **number-densenet_lite_136-gru**  🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 5.5 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
-| **number-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104055055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 55 M         | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
+| **number-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11884155&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 55 M         | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
+| ch_PP-OCRv5                                                  | X            | √         | ppocr        | 16 M         | 简体中文、英文、数字                | √                    |
+| ch_PP-OCRv5_server                                           | X            | √         | ppocr        | 81 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv4                                                  | X            | √         | ppocr        | 10 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv4_server                                           | X            | √         | ppocr        | 86 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv3                                                  | X            | √         | ppocr        | 10 M         | 简体中文、英文、数字                | √                    |

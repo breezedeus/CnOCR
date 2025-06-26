@@ -64,7 +64,7 @@ class CnOcr(object):
         self,
         rec_model_name: str = 'densenet_lite_136-gru',
         *,
-        det_model_name: str = 'ch_PP-OCRv4_det',
+        det_model_name: str = 'ch_PP-OCRv5_det',
         cand_alphabet: Optional[Union[Collection, str]] = None,
         context: str = 'cpu',  # ['cpu', 'gpu', 'cuda']
         rec_model_fp: Optional[str] = None,
@@ -83,7 +83,7 @@ class CnOcr(object):
 
         Args:
             rec_model_name (str): 识别模型名称。默认为 `densenet_lite_136-gru`
-            det_model_name (str): 检测模型名称。默认为 `ch_PP-OCRv4_det`
+            det_model_name (str): 检测模型名称。默认为 `ch_PP-OCRv5_det`
             cand_alphabet (Optional[Union[Collection, str]]): 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围
             context (str): 'cpu', or 'gpu'。表明预测时是使用CPU还是GPU。默认为 `cpu`。
                 此参数仅在 `model_backend=='pytorch'` 时有效。

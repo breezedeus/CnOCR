@@ -215,8 +215,8 @@ def visualize_example(example, fp_prefix):
     '-d',
     '--det-model-name',
     type=str,
-    default='ch_PP-OCRv4_det',
-    help='检测模型名称。默认值为 ch_PP-OCRv4_det',
+    default='ch_PP-OCRv5_det',
+    help='检测模型名称。默认值为 ch_PP-OCRv5_det',
 )
 @click.option(
     '--det-model-backend',

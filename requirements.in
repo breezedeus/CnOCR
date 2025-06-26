@@ -15,5 +15,5 @@ torchmetrics>=0.9.0
 pillow>=5.3.0
 onnx
 onnxruntime
-rapidocr_onnxruntime<1.4
-cnstd>=1.2.5.1
+rapidocr>=3.0
+cnstd>=1.2.6

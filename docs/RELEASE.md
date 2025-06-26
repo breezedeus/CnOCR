@@ -1,5 +1,17 @@
 # Release Notes
 
+### Update 2025.06.26：发布 V2.3.2
+
+Major Changes:
+
+* Integrated the latest PPOCRv5 text recognition
+  * Added support for PP-OCRv5 recognition models: `ch_PP-OCRv5` and `ch_PP-OCRv5_server`
+
+主要变更：
+
+* 集成 PPOCRv5 最新版 OCR 模型
+  * 新增支持 PP-OCRv5 识别模型：`ch_PP-OCRv5` 和 `ch_PP-OCRv5_server`
+
 ### Update 2024.11.30：发布 V2.3.1
 
 主要变更：
