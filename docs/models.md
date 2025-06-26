@@ -13,11 +13,13 @@
 | `det_model_name`                                             | PyTorch 版本 | ONNX 版本 | 模型原始来源 | 模型文件大小 | 支持语言                       | 是否支持竖排文字识别 |
 | ------------------------------------------------------------ | ------------ | --------- | ------------ | ------------ | ------------------------------ | -------------------- |
 | db_shufflenet_v2                                             | √            | X         | cnocr        | 18 M         | 简体中文、繁体中文、英文、数字 | √                    |
-| **db_shufflenet_v2_small**                                   | √            | X         | cnocr        | 12 M         | 简体中文、繁体中文、英文、数字 | √                    |
+| db_shufflenet_v2_small                                   | √            | X         | cnocr        | 12 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_mobilenet_v3                                              | √            | X         | cnocr        | 16 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det                                              | X            | √         | ppocr        | 4.6 M        | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | 简体中文、繁体中文、英文、数字 | √                    |
@@ -58,12 +60,12 @@ CnOCR 自己训练的模型都支持**常见简体中文、英文和数字**的�
 | **densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
 | **scene-densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
 | **doc-densenet_lite_246-gru_base** 🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 25 M         | 简体中文、英文、数字                | X                    |
-| **densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104812055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
-| **scene-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104815055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
-| **doc-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104820055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11884138&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **scene-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11883935&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
+| **doc-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11883965&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 82 M         | 简体中文、英文、数字                | X                    |
 | **number-densenet_lite_136-fc** 🆕                            | √            | √         | cnocr        | 2.7 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
 | **number-densenet_lite_136-gru**  🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 5.5 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
-| **number-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://gf.bilibili.com/item/detail/1104055055)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 55 M         | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
+| **number-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11884155&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 55 M         | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
 
 
 一些说明：
@@ -87,6 +89,8 @@ CnOCR 的自有模型从结构上可以分为两阶段：第一阶段是获得oc
 
 | `model_name`          | PyTorch 版本 | ONNX 版本 | 支持语言                 | 是否支持竖排文字识别 | 模型文件大小 |
 | --------------------- | ------------ | --------- | ------------------------ | -------------------- | ------------ |
+| ch_PP-OCRv5           | X            | √         | 简体中文、英文、数字     | √                    | 16 M         | 
+| ch_PP-OCRv5_server    | X            | √         | 简体中文、英文、数字     | √                    | 81 M         | 
 | ch_PP-OCRv4           | X            | √         | 简体中文、英文、数字     | √                    | 10 M         | 
 | ch_PP-OCRv4_server    | X            | √         | 简体中文、英文、数字     | √                    | 86 M         | 
 | ch_PP-OCRv3           | X            | √         | 简体中文、英文、数字     | √                    | 10 M         |

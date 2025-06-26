@@ -19,36 +19,74 @@
 
 import os
 import pytest
-import torch
 from pathlib import Path
+import logging
 
-from rapidocr_onnxruntime import RapidOCR
-from rapidocr_onnxruntime.utils import LoadImage
-from rapidocr_onnxruntime.ch_ppocr_rec import TextRecognizer
-from rapidocr_onnxruntime.ch_ppocr_det import TextDetector            
-from rapidocr_onnxruntime.utils import LoadImage
+from rapidocr import EngineType, LangDet, LangRec, ModelType, OCRVersion, RapidOCR
+from rapidocr.utils import LoadImage
+from rapidocr.ch_ppocr_rec import TextRecognizer, TextRecInput
+from cnocr.ppocr.rapid_recognizer import RapidRecognizer, Config
+from cnocr.utils import set_logger
+from cnocr import CnOcr
 
-def test_whole_pipeline():
-    engine = RapidOCR(det_model_path="en_PP-OCRv3_det_infer.onnx", rec_model_path="en_PP-OCRv4_rec_infer.onnx")
-
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    example_dir = Path(root_dir) / 'docs/examples'
-    # img_path = example_dir / 'multi-line_cn1.png'
-    img_path = example_dir / 'en_ticket.jpeg'
-    result, elapse = engine(img_path)
-    print(result)
-    breakpoint()
-    print(elapse)
+logger = set_logger(log_level=logging.INFO)
 
 
 def test_rec():
-    config = {'intra_op_num_threads': -1, 'inter_op_num_threads': -1, 'use_cuda': False, 'use_dml': False, 'model_path': 'en_PP-OCRv4_rec_infer.onnx', 'rec_img_shape': [3, 48, 320], 'rec_batch_num': 6}
-    # config = dict(det_model_path="en_PP-OCRv3_det_infer.onnx")
+    config = Config(Config.DEFAULT_CFG)
     engine = TextRecognizer(config)
 
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     example_dir = Path(root_dir) / 'docs/examples'
     # img_path = example_dir / 'multi-line_cn1.png'
     img_path = example_dir / 'hybrid.png'
-    result, elapse = engine(LoadImage()(img_path))
+    img = LoadImage()(img_path)
+    rec_input = TextRecInput(img=img, return_word_box=True)
+    result = engine(rec_input)
     print(result)
+
+
+def test_cnocr():
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    example_dir = Path(root_dir) / 'docs/examples'
+    # img_path = example_dir / 'multi-line_cn1.png'
+    img_path = example_dir / 'hybrid.png'
+    ocr = CnOcr(det_model_name='ch_PP-OCRv5_det', rec_model_name='ch_PP-OCRv5')
+    result = ocr.ocr(img_path)
+    print(result)
+
+
+def test_rec_rapidocr():
+    engine = RapidRecognizer(model_name="ch_PP-OCRv3")
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    example_dir = Path(root_dir) / 'docs/examples'
+    # img_path = example_dir / 'multi-line_cn1.png'
+    img_path = example_dir / 'hybrid.png'
+    result = engine.recognize([img_path])
+    print(result)
+
+
+def test_whole_pipeline():
+    engine = RapidOCR(
+        params={
+        "Det.engine_type": EngineType.ONNXRUNTIME,
+        "Det.lang_type": LangDet.CH,
+        "Det.model_type": ModelType.SERVER,
+        "Det.ocr_version": OCRVersion.PPOCRV5,
+        "Rec.engine_type": EngineType.ONNXRUNTIME,
+        "Rec.lang_type": LangRec.CH,
+        "Rec.model_type": ModelType.SERVER,
+        "Rec.ocr_version": OCRVersion.PPOCRV5,
+        "Rec.model_path": "models/rapid_ocr/ch_PP-OCRv5_server_rec_infer.onnx",
+        # "Rec.model_path": "models/rapid_ocr/ch_PP-OCRv5_rec_mobile_infer/ch_PP-OCRv5_rec_mobile_infer.onnx",
+        # "Rec.rec_keys_path": "models/rapid_ocr/ch_PP-OCRv5_rec_mobile_infer/ppocrv5_dict.txt",
+    }
+    )
+
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    example_dir = Path(root_dir) / 'docs/examples'
+    img_path = example_dir / 'hybrid.png'
+    result = engine(img_path, )
+    print(result)
+
+    result.vis("vis_result.jpg")

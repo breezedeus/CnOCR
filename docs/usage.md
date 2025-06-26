@@ -23,7 +23,7 @@ class CnOcr(object):
         self,
         rec_model_name: str = 'densenet_lite_136-gru',
         *,
-        det_model_name: str = 'ch_PP-OCRv3_det',
+        det_model_name: str = 'ch_PP-OCRv5_det',
         cand_alphabet: Optional[Union[Collection, str]] = None,
         context: str = 'cpu',  # ['cpu', 'gpu', 'cuda']
         rec_model_fp: Optional[str] = None,
@@ -43,7 +43,7 @@ class CnOcr(object):
 
 * `rec_model_name`: 识别模型名称。默认为 `densenet_lite_136-gru`。更多可选模型见 [可直接使用的模型](models.md) 。
 
-* `det_model_name`: 检测模型名称。默认为 `ch_PP-OCRv3_det`。更多可选模型见 [可直接使用的模型](models.md) 。
+* `det_model_name`: 检测模型名称。默认为 `ch_PP-OCRv5_det`。更多可选模型见 [可直接使用的模型](models.md) 。
 
 * `cand_alphabet`: 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围。取值可以是字符串，如 `"0123456789"`，或者字符列表，如 `["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]`。
 	* `cand_alphabet`也可以初始化后通过类函数 `CnOcr.set_cand_alphabet(cand_alphabet)` 进行设置。这样同一个实例也可以指定不同的`cand_alphabet`进行识别。
