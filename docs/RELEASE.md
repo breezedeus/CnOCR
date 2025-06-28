@@ -1,5 +1,15 @@
 # Release Notes
 
+### Update 2025.06.28：发布 V2.3.2.1
+
+Major Changes:
+
+* Bug fixes.
+
+主要变更：
+
+* 修复bug。
+
 ### Update 2025.06.26：发布 V2.3.2
 
 Major Changes:

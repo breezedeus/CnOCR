@@ -307,6 +307,8 @@ def draw_ocr_box_txt(image,
             continue
         color = (random.randint(0, 255), random.randint(0, 255),
                  random.randint(0, 255))
+        # box 是 ndarray，  它的 dtype 必须是 float32
+        box = box.astype(np.float32)
         draw_left.polygon(box, fill=color)
         draw_right.polygon(
             [

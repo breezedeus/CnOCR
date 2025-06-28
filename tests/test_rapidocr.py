@@ -51,7 +51,9 @@ def test_cnocr():
     example_dir = Path(root_dir) / 'docs/examples'
     # img_path = example_dir / 'multi-line_cn1.png'
     img_path = example_dir / 'hybrid.png'
-    ocr = CnOcr(det_model_name='ch_PP-OCRv5_det', rec_model_name='ch_PP-OCRv5')
+    ocr = CnOcr(det_model_name='ch_PP-OCRv5_det',  # 'ch_PP-OCRv5_det_server'
+                rec_model_name='ch_PP-OCRv5',  # 'ch_PP-OCRv5_server'
+                )
     result = ocr.ocr(img_path)
     print(result)
 
