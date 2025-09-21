@@ -109,6 +109,9 @@ class RapidRecognizer(Recognizer):
         self._assert_and_prepare_model_files(model_fp, root)
 
         config = Config.DEFAULT_CFG
+        ## add custom font path
+        if 'font_path' in kwargs:
+            config['font_path'] = kwargs['font_path']
         config["engine_cfg"]["use_cuda"] = use_gpu
         if "engine_cfg" in kwargs:
             config["engine_cfg"].update(kwargs["engine_cfg"])
