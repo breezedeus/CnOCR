@@ -8,7 +8,7 @@ Major Changes:
 
 主要变更：
 
-* 修复bug: https://github.com/breezedeus/CnOCR/pull/365。感谢 [@wangsrGit119](https://github.com/wangsrGit119) 。
+* 修复bug: https://github.com/breezedeus/CnOCR/pull/365 。感谢 [@wangsrGit119](https://github.com/wangsrGit119) 。
 
 ### Update 2025.06.28：发布 V2.3.2.1
 
