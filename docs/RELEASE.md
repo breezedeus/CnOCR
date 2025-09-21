@@ -1,5 +1,15 @@
 # Release Notes
 
+### Update 2025.09.21：发布 V2.3.2.2
+
+Major Changes:
+
+* Fix bug: https://github.com/breezedeus/CnOCR/pull/365. Thanks to [@wangsrGit119](https://github.com/wangsrGit119).
+
+主要变更：
+
+* 修复bug: https://github.com/breezedeus/CnOCR/pull/365。感谢 [@wangsrGit119](https://github.com/wangsrGit119) 。
+
 ### Update 2025.06.28：发布 V2.3.2.1
 
 Major Changes:
