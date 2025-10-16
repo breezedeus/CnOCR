@@ -110,8 +110,7 @@ class RapidRecognizer(Recognizer):
 
         config = Config.DEFAULT_CFG
         ## add custom font path
-        if 'font_path' in kwargs:
-            config['font_path'] = kwargs['font_path']
+        config['font_path'] = kwargs['font_path'] if 'font_path' in kwargs else None
         config["engine_cfg"]["use_cuda"] = use_gpu
         if "engine_cfg" in kwargs:
             config["engine_cfg"].update(kwargs["engine_cfg"])
