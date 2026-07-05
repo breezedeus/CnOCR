@@ -47,8 +47,8 @@ required = [
     "torchmetrics",
     "pillow>=5.3.0",
     "onnx",
-    "cnstd>=1.2.6",
-    "rapidocr>=3.0",
+    "cnstd>=1.2.8",
+    "rapidocr>=3.9.1",
 ]
 extras_require = {
     "ort-cpu": ["onnxruntime"],
@@ -91,6 +91,7 @@ setup(
     entry_points=entry_points,
     install_requires=required,
     extras_require=extras_require,
+    python_requires='>=3.8',
     zip_safe=False,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -100,7 +101,6 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: Implementation',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',

@@ -27,12 +27,16 @@ from pathlib import Path
 import numpy as np
 import torch
 from PIL import Image
+from rapidocr import LangRec
 from cnstd.consts import AVAILABLE_MODELS as DET_AVAILABLE_MODELS
 from cnstd import CnStd
 from cnstd.utils import data_dir as det_data_dir
 
 from .consts import AVAILABLE_MODELS as REC_AVAILABLE_MODELS
-from .utils import data_dir, read_img
+from .utils import (
+    data_dir,
+    read_img,
+)
 from .line_split import line_split
 from .recognizer import Recognizer
 from .ppocr import PPRecognizer, RapidRecognizer, PP_SPACE
@@ -64,12 +68,13 @@ class CnOcr(object):
         self,
         rec_model_name: str = 'densenet_lite_136-gru',
         *,
-        det_model_name: str = 'ch_PP-OCRv5_det',
+        det_model_name: str = 'multi_PP-OCRv6_det_small',
         cand_alphabet: Optional[Union[Collection, str]] = None,
         context: str = 'cpu',  # ['cpu', 'gpu', 'cuda']
         rec_model_fp: Optional[str] = None,
         rec_model_backend: str = 'onnx',  # ['pytorch', 'onnx']
         rec_vocab_fp: Optional[Union[str, Path]] = None,
+        rec_lang_type: Optional[Union[str, LangRec]] = None,
         rec_more_configs: Optional[Dict[str, Any]] = None,
         rec_root: Union[str, Path] = data_dir(),
         det_model_fp: Optional[str] = None,
@@ -83,7 +88,7 @@ class CnOcr(object):
 
         Args:
             rec_model_name (str): 识别模型名称。默认为 `densenet_lite_136-gru`
-            det_model_name (str): 检测模型名称。默认为 `ch_PP-OCRv5_det`
+            det_model_name (str): 检测模型名称。默认为 `multi_PP-OCRv6_det_small`
             cand_alphabet (Optional[Union[Collection, str]]): 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围
             context (str): 'cpu', or 'gpu'。表明预测时是使用CPU还是GPU。默认为 `cpu`。
                 此参数仅在 `model_backend=='pytorch'` 时有效。
@@ -92,6 +97,8 @@ class CnOcr(object):
                 同样的模型，ONNX 版本的预测速度一般是 PyTorch 版本的2倍左右。默认为 'onnx'。
             rec_vocab_fp (Optional[Union[str, Path]]): 识别字符集合的文件路径，即 `label_cn.txt` 文件路径。取值为 `None` 表示使用系统设定的词表。
                 若训练的自有模型更改了字符集，看通过此参数传入新的字符集文件路径。
+            rec_lang_type (Optional[Union[str, LangRec]]): RapidOCR识别模型语言类型。PP-OCRv6
+                需传入具体语言，如 `ch`、`en`、`japan`、`french` 等；默认为中文。
             rec_more_configs (Optional[Dict[str, Any]]): 识别模型初始化时传入的其他参数。
             rec_root (Union[str, Path]): 识别模型文件所在的根目录。
                 Linux/Mac下默认值为 `~/.cnocr`，表示模型文件所处文件夹类似 `~/.cnocr/2.3/densenet_lite_136-gru`。
@@ -101,7 +108,7 @@ class CnOcr(object):
                 同样的模型，ONNX 版本的预测速度一般是 PyTorch 版本的2倍左右。默认为 'onnx'。
             det_more_configs (Optional[Dict[str, Any]]): 识别模型初始化时传入的其他参数。
             det_root: 检测模型文件所在的根目录。
-                Linux/Mac下默认值为 `~/.cnstd`，表示模型文件所处文件夹类似 `~/.cnstd/1.2/db_resnet18`
+                Linux/Mac下默认值为 `~/.cnstd`，表示模型文件所处文件夹类似 `~/.cnstd/1.2/ppocr/multi_PP-OCRv6_det_small`
                 Windows下默认值为 `C:/Users/<username>/AppData/Roaming/cnstd`。
             **kwargs: 目前未被使用。
 
@@ -152,7 +159,14 @@ class CnOcr(object):
                 '%s is not supported currently' % ((rec_model_name, rec_model_backend),)
             )
 
-        rec_more_configs = rec_more_configs or dict()
+        rec_more_configs = dict(rec_more_configs or {})
+        if rec_lang_type is not None:
+            if 'lang_type' in rec_more_configs:
+                logger.warning(
+                    'both `rec_lang_type` and `rec_more_configs["lang_type"]` are set; '
+                    '`rec_lang_type` will be used'
+                )
+            rec_more_configs['lang_type'] = rec_lang_type
         self.rec_model = rec_cls(
             model_name=rec_model_name,
             model_backend=rec_model_backend,
@@ -162,6 +176,18 @@ class CnOcr(object):
             root=rec_root,
             vocab_fp=rec_vocab_fp,
             **rec_more_configs,
+        )
+        rec_effective_lang_type = getattr(self.rec_model, '_lang_type', None)
+        rec_effective_lang_type = getattr(
+            rec_effective_lang_type, 'value', rec_effective_lang_type
+        )
+        logger.info(
+            'use rec model: name=%s, backend=%s, lang_type=%s, fp=%s',
+            rec_model_name,
+            rec_model_backend,
+            rec_effective_lang_type,
+            getattr(self.rec_model, '_model_fp', rec_model_fp),
+            extra={'log_color': 'green'},
         )
 
         self.det_model = None

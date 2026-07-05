@@ -42,9 +42,51 @@ from .consts import (
     IMG_STANDARD_HEIGHT,
 )
 
-fmt = '[%(levelname)s %(asctime)s %(funcName)s:%(lineno)d] %(message)s'
+LOG_FMT = '[%(levelname)s] %(asctime)s [%(package_name)s] %(filename)s:%(lineno)d: %(message)s'
+GREEN = '\033[32m'
+RESET = '\033[0m'
+
+
+def _package_label(logger_name):
+    if logger_name.startswith('cnocr'):
+        return 'CnOCR'
+    if logger_name.startswith('cnstd'):
+        return 'CnSTD'
+    if logger_name.startswith('RapidOCR'):
+        return 'RapidOCR'
+    return logger_name.split('.', maxsplit=1)[0]
+
+
+class PackageFormatter(logging.Formatter):
+    def format(self, record):
+        record.package_name = _package_label(record.name)
+        return super().format(record)
+
+
+class ColoredFormatter(PackageFormatter):
+    def format(self, record):
+        msg = super().format(record)
+        if getattr(record, 'log_color', None) == 'green':
+            return GREEN + msg + RESET
+        return msg
 
 logger = logging.getLogger(__name__)
+
+
+def set_rapidocr_logger_level(log_level=logging.WARNING):
+    logging.getLogger('RapidOCR').setLevel(log_level)
+
+
+def _console_handler():
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(ColoredFormatter(LOG_FMT))
+    return console_handler
+
+
+def get_logger(name=__name__, log_level=logging.INFO):
+    logger = logging.getLogger(name)
+    logger.setLevel(log_level)
+    return logger
 
 
 def set_logger(log_file=None, log_level=logging.INFO, log_file_level=logging.NOTSET):
@@ -54,14 +96,18 @@ def set_logger(log_file=None, log_level=logging.INFO, log_file_level=logging.NOT
         >>> logger.info("abc'")
     """
     global logger
-    log_format = logging.Formatter(fmt)
-    logging.basicConfig(format=fmt)
+    log_format = PackageFormatter(LOG_FMT)
     logging.captureWarnings(True)
-    logger = logging.getLogger(__name__)
-    logger.setLevel(log_level)
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(log_format)
-    logger.handlers = [console_handler]
+    set_rapidocr_logger_level()
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(log_level)
+    root_logger.handlers = [_console_handler()]
+    for package_name in ('cnocr', 'cnstd'):
+        package_logger = logging.getLogger(package_name)
+        package_logger.setLevel(logging.NOTSET)
+        package_logger.propagate = True
+
     if log_file and log_file != '':
         if not Path(log_file).parent.exists():
             os.makedirs(Path(log_file).parent)
@@ -70,7 +116,9 @@ def set_logger(log_file=None, log_level=logging.INFO, log_file_level=logging.NOT
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(log_file_level)
         file_handler.setFormatter(log_format)
-        logger.addHandler(file_handler)
+        root_logger.addHandler(file_handler)
+    logger = logging.getLogger(__name__)
+    logger.setLevel(log_level)
     return logger
 
 

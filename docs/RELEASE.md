@@ -1,5 +1,25 @@
 # Release Notes
 
+### Update 2026.07.04：发布 V2.3.3
+
+Major Changes:
+
+* Added RapidOCR-based PP-OCRv6 multilingual OCR models.
+  * Recognition models: `multi_PP-OCRv6_tiny`, `multi_PP-OCRv6`, `multi_PP-OCRv6_small`, and `multi_PP-OCRv6_medium`.
+  * Detection models through CnSTD: `multi_PP-OCRv6_det_tiny`, `multi_PP-OCRv6_det_small`, and `multi_PP-OCRv6_det_medium`.
+  * Python API: `CnOcr(rec_lang_type=...)` for RapidOCR v6 recognition language selection.
+  * CLI options: `--rec-lang-type` and `--det-lang-type` for RapidOCR v6 language selection.
+* Bump dependency: `cnstd>=1.2.8`.
+
+主要变更：
+
+* 基于 RapidOCR 支持 PP-OCRv6 多语种 OCR 模型。
+  * 识别模型：`multi_PP-OCRv6_tiny`、`multi_PP-OCRv6`、`multi_PP-OCRv6_small` 和 `multi_PP-OCRv6_medium`。
+  * 通过 CnSTD 支持检测模型：`multi_PP-OCRv6_det_tiny`、`multi_PP-OCRv6_det_small` 和 `multi_PP-OCRv6_det_medium`。
+  * Python API 新增 `CnOcr(rec_lang_type=...)`，可为 RapidOCR v6 识别模型指定语言类型。
+  * CLI 新增 `--rec-lang-type` 和 `--det-lang-type`，可为 RapidOCR v6 模型指定语言类型。
+* 依赖升级：`cnstd>=1.2.8`。
+
 ### Update 2026.02.07：发布 V2.3.2.3
 
 Major Changes:

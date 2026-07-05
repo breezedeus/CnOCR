@@ -81,6 +81,22 @@ MODEL_LABELS_FILE_DICT = {
         "recognizer": "RapidRecognizer",
         "repo": "breezedeus/cnocr-ppocr-ch_PP-OCRv5_server",
     },
+    ("multi_PP-OCRv6_tiny", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-multi_PP-OCRv6_tiny",
+    },
+    ("multi_PP-OCRv6", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-multi_PP-OCRv6",
+    },
+    ("multi_PP-OCRv6_small", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-multi_PP-OCRv6_small",
+    },
+    ("multi_PP-OCRv6_medium", "onnx"): {
+        "recognizer": "RapidRecognizer",
+        "repo": "breezedeus/cnocr-ppocr-multi_PP-OCRv6_medium",
+    },
 }
 
 PP_SPACE = "ppocr"
