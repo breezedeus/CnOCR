@@ -181,13 +181,13 @@ Recognition results:
 
 ### Vertical text recognition
 
-Chinese recognition model `rec_model_name='ch_PP-OCRv3'` from **ppocr**  is used for recognition.
+The PP-OCRv6 multilingual recognition model `rec_model_name='multi_PP-OCRv6'` from **ppocr** is used for recognition.
 
 ```python
 from cnocr import CnOcr
 
 img_fp = './docs/examples/shupai.png'
-ocr = CnOcr(rec_model_name='ch_PP-OCRv3')
+ocr = CnOcr(rec_model_name='multi_PP-OCRv6')
 out = ocr.ocr(img_fp)
 
 print(out)
@@ -201,29 +201,25 @@ Recognition results:
 
 ### Traditional Chinese Recognition
 
-Use the traditional Chinese recognition model from ppocr `rec_model_name='english_cht_PP-OCRv3'` for recognition.
+Use the PP-OCRv6 multilingual recognition model from ppocr, and set `rec_lang_type='chinese_cht'` for Traditional Chinese.
 
 ```python
 from cnocr import CnOcr
 
 img_fp = './docs/examples/fanti.jpg'
-ocr = CnOcr(rec_model_name='chinese_cht_PP-OCRv3')  # use the traditional Chinese recognition model
+ocr = CnOcr(rec_model_name='multi_PP-OCRv6', rec_lang_type='chinese_cht')
 out = ocr.ocr(img_fp)
 
 print(out)
 ```
 
-When using this model, please note the following issues:
-
-* The recognition accuracy is average and not very good.
-
-* The recognition of punctuation, English and numbers is not good except for traditional Chinese characters.
-
-* This model does not support the recognition of vertical text.
+`multi_PP-OCRv6` is an alias of `multi_PP-OCRv6_small`; `chinese_cht` is the `lang_type` for Traditional Chinese.
 
 <div align="center">
   <img src="./docs/predict-outputs/fanti.jpg-result.jpg" alt="traditional Chinese recognition" width="700px"/>
 </div>
+
+Note: The recognition result shown above was produced by a V3 model. The V6 model has significantly improved recognition quality.
 
 ### Single line text image recognition
 

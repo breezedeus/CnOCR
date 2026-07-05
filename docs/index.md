@@ -118,13 +118,13 @@ print(out)
 
 ### 竖排文字识别
 
-采用来自 [**PaddleOCR**](https://github.com/PaddlePaddle/PaddleOCR)（之后简称 **ppocr**）的中文识别模型 `rec_model_name='ch_PP-OCRv3'` 进行识别。
+采用来自 [**PaddleOCR**](https://github.com/PaddlePaddle/PaddleOCR)（之后简称 **ppocr**）的 PP-OCRv6 多语种识别模型 `rec_model_name='multi_PP-OCRv6'` 进行识别。
 
 ```python
 from cnocr import CnOcr
 
 img_fp = './docs/examples/shupai.png'
-ocr = CnOcr(rec_model_name='ch_PP-OCRv3')
+ocr = CnOcr(rec_model_name='multi_PP-OCRv6')
 out = ocr.ocr(img_fp)
 
 print(out)
@@ -179,25 +179,19 @@ print(out)
 
 ### 繁体中文识别
 
-采用来自ppocr的繁体识别模型 `rec_model_name='chinese_cht_PP-OCRv3'` 进行识别。
+采用来自 ppocr 的 PP-OCRv6 多语种识别模型，并通过 `rec_lang_type='chinese_cht'` 指定繁体中文进行识别。
 
 ```python
 from cnocr import CnOcr
 
 img_fp = './docs/examples/fanti.jpg'
-ocr = CnOcr(rec_model_name='chinese_cht_PP-OCRv3')  # 识别模型使用繁体识别模型
+ocr = CnOcr(rec_model_name='multi_PP-OCRv6', rec_lang_type='chinese_cht')
 out = ocr.ocr(img_fp)
 
 print(out)
 ```
 
-使用此模型时请注意以下问题：
-
-* 识别精度一般，不是很好；
-
-* 除了繁体字，对标点、英文、数字的识别都不好；
-
-* 此模型不支持竖排文字的识别。
+`multi_PP-OCRv6` 是 `multi_PP-OCRv6_small` 的别名；`chinese_cht` 是繁体中文对应的 `lang_type`。
 
 识别结果：
 
@@ -205,6 +199,7 @@ print(out)
 ![繁体中文识别](./predict-outputs/fanti.jpg-result.jpg){: style="width:700px"}
 </figure>
 
+注：上图中的识别结果来自 V3 模型；V6 模型的识别效果已经有显著增强。
 
 
 
