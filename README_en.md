@@ -285,12 +285,12 @@ $ pip install cnocr[dev]
 If the installation is slow, you can specify a domestic installation source, such as using the Aliyun source: 
 
 ```bash
-$ pip install cnocr -i https://mirrors.aliyun.com/pypi/simple
+$ pip install cnocr[ort-cpu] -i https://mirrors.aliyun.com/pypi/simple
 ```
 
 > **Note** 
 >
-> Please use **Python3** (3.6 and later should work), I haven't tested if it's okay under Python2.
+> Please use **Python 3.8 or later**.
 
 More instructions can be found in the [installation documentation](https://cnocr.readthedocs.io/zh-cn/stable/install/) (in Chinese).
 

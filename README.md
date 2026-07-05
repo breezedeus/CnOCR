@@ -312,7 +312,7 @@ $ pip install cnocr[ort-cpu] -i https://mirrors.aliyun.com/pypi/simple
 
 > **Note** 
 >
-> 请使用 **Python3**（3.7.\*~3.10.\*之间的版本应该都行），没测过Python2下是否ok。
+> 请使用 **Python 3.8 或更高版本**。
 
 更多说明可见 [安装文档](https://cnocr.readthedocs.io/zh-cn/stable/install/)。
 

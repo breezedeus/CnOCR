@@ -29,7 +29,7 @@ $ pip install cnocr[ort-cpu] -i https://mirrors.aliyun.com/pypi/simple
 
 > **Note**
 >
-> 请使用 **Python3**（3.6以及之后版本应该都行），没测过Python2下是否ok。
+> 请使用 **Python 3.8 或更高版本**。
 
 
 
