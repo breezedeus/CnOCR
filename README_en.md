@@ -38,6 +38,17 @@
 ---
 </div>
 
+### [Update 2026.07.04]: Release of V2.3.3
+
+Major Changes:
+
+* Added RapidOCR-based PP-OCRv6 multilingual OCR models
+  * New PP-OCRv6 recognition models: `multi_PP-OCRv6_tiny`, `multi_PP-OCRv6`, `multi_PP-OCRv6_small`, and `multi_PP-OCRv6_medium`
+  * New PP-OCRv6 detection models through CnSTD: `multi_PP-OCRv6_det_tiny`, `multi_PP-OCRv6_det_small`, and `multi_PP-OCRv6_det_medium`
+  * Added `rec_lang_type` to `CnOcr` for setting the language type used by RapidOCR v6 recognition models
+  * Added the CLI options `--rec-lang-type` and `--det-lang-type` for setting the language type used by RapidOCR v6 models
+
+
 ### [Update 2024.11.30]: Release of V2.3.1
 
 Major Changes:
@@ -274,12 +285,12 @@ $ pip install cnocr[dev]
 If the installation is slow, you can specify a domestic installation source, such as using the Aliyun source: 
 
 ```bash
-$ pip install cnocr -i https://mirrors.aliyun.com/pypi/simple
+$ pip install cnocr[ort-cpu] -i https://mirrors.aliyun.com/pypi/simple
 ```
 
 > **Note** 
 >
-> Please use **Python3** (3.6 and later should work), I haven't tested if it's okay under Python2.
+> Please use **Python 3.8 or later**.
 
 More instructions can be found in the [installation documentation](https://cnocr.readthedocs.io/zh-cn/stable/install/) (in Chinese).
 
@@ -314,11 +325,16 @@ Refer to [CnSTD](https://github.com/breezedeus/CnSTD?tab=readme-ov-file#%E5%B7%B
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
+| multi_PP-OCRv6_det_tiny                                      | X            | √         | ppocr        | 1.7 M        | Multilingual, except Japanese | √                    |
+| multi_PP-OCRv6_det_small                                     | X            | √         | ppocr        | 9.5 M        | Multilingual | √                    |
+| multi_PP-OCRv6_det_medium                                    | X            | √         | ppocr        | 59 M         | Multilingual | √                    |
 | ch_PP-OCRv5_det                                              | X            | √         | ppocr        | 4.6 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
-| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
+| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M         | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | Simplified Chinese, Traditional Chinese, English, Numbers | √                    |
+
+For PP-OCRv6, `multi_PP-OCRv6_det_small` and `multi_PP-OCRv6_det_medium` support these `lang_type` values: `ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, and `german`. `multi_PP-OCRv6_det_tiny` does not support `japan`. `multi` is the model family name, not a valid `lang_type`.
 
 
 
@@ -354,6 +370,9 @@ For more details, see: [Available Models](https://cnocr.readthedocs.io/zh-cn/sta
 | **number-densenet_lite_136-fc** 🆕                                                                                    | √               | √  | cnocr        | 2.7 M        | **Pure Numeric** (contains only the ten digits `0~9`) | X                    |
 | **number-densenet_lite_136-gru**  🆕 <br /> ([Planet Members](https://t.zsxq.com/FEYZRJQ) Only)                       | √               | √         | cnocr        | 5.5 M       | **Pure Numeric** (contains only the ten digits `0~9`)  | X                    |
 | **number-densenet_lite_666-gru_large** 🆕 <br /> ([Purchase Link](https://ocr.lemonsqueezy.com))                      | √               | √         | cnocr        | 56 M      | **Pure Numeric** (contains only the ten digits `0~9`)  | X                    |
+| multi_PP-OCRv6_tiny                                          | X            | √         | ppocr        | 4.3 M        | Multilingual, except Japanese | √                    |
+| multi_PP-OCRv6 / multi_PP-OCRv6_small                        | X            | √         | ppocr        | 20 M         | Multilingual | √                    |
+| multi_PP-OCRv6_medium                                        | X            | √         | ppocr        | 73 M         | Multilingual | √                    |
 | ch_PP-OCRv5                                                  | X            | √         | ppocr        | 16 M         | Simplified Chinese, English, Numbers  | √                    |
 | ch_PP-OCRv5_server                                           | X            | √         | ppocr        | 81 M         | Simplified Chinese, English, Numbers | √                    |
 | ch_PP-OCRv4                                                  | X            | √         | ppocr        | 10 M         | Simplified Chinese, English, Numbers  | √                    |
@@ -368,6 +387,8 @@ For more details, see: [Available Models](https://cnocr.readthedocs.io/zh-cn/sta
 | **korean_PP-OCRv3**                                                                                                   | X               | √         | ppocr        | 9.4 M         | **Korean**, English, Numbers | √     |
 | **latin_PP-OCRv3**                                                                                                    | X               | √         | ppocr        | 8.6 M         | **Latin**, English, Numbers | √     |
 | **arabic_PP-OCRv3**                                                                                                   | X               | √         | ppocr        | 8.6 M         | **Arabic**, English, Numbers | √     |
+
+For PP-OCRv6, `multi_PP-OCRv6_small` and `multi_PP-OCRv6_medium` support these `lang_type` values: `ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, and `german`. `multi_PP-OCRv6_tiny` does not support `japan`. `multi_PP-OCRv6` is an alias of `multi_PP-OCRv6_small`; `multi` is the model family name, not a valid `lang_type`.
 
 
 ## Future work

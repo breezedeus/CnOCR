@@ -39,6 +39,17 @@
 ---
 </div>
 
+### Update 2026.07.04：发布 V2.3.3
+
+主要变更：
+
+* 基于 RapidOCR 支持 PP-OCRv6 多语种 OCR 模型
+  * 新增支持 PP-OCRv6 识别模型：`multi_PP-OCRv6_tiny`、`multi_PP-OCRv6`、`multi_PP-OCRv6_small` 和 `multi_PP-OCRv6_medium`
+  * 通过 CnSTD 新增支持 PP-OCRv6 检测模型：`multi_PP-OCRv6_det_tiny`、`multi_PP-OCRv6_det_small` 和 `multi_PP-OCRv6_det_medium`
+  * `CnOcr` 新增 `rec_lang_type` 参数，可为 RapidOCR v6 识别模型指定语言类型
+  * CLI 新增 `--rec-lang-type` 和 `--det-lang-type`，可为 RapidOCR v6 模型指定语言类型
+
+
 ### Update 2025.06.26：发布 V2.3.2
 
 主要变更：
@@ -301,7 +312,7 @@ $ pip install cnocr[ort-cpu] -i https://mirrors.aliyun.com/pypi/simple
 
 > **Note** 
 >
-> 请使用 **Python3**（3.7.\*~3.10.\*之间的版本应该都行），没测过Python2下是否ok。
+> 请使用 **Python 3.8 或更高版本**。
 
 更多说明可见 [安装文档](https://cnocr.readthedocs.io/zh-cn/stable/install/)。
 
@@ -398,12 +409,17 @@ print(ocr_out)
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | 简体中文、繁体中文、英文、数字 | √                    |
+| multi_PP-OCRv6_det_tiny                                      | X            | √         | ppocr        | 1.7 M        | 多语种（不含日文）             | √                    |
+| multi_PP-OCRv6_det_small                                     | X            | √         | ppocr        | 9.5 M        | 多语种                         | √                    |
+| multi_PP-OCRv6_det_medium                                    | X            | √         | ppocr        | 59 M         | 多语种                         | √                    |
 | ch_PP-OCRv5_det                                              | X            | √         | ppocr        | 4.6 M        | 简体中文、繁体中文、英文、数字 | √                    |
-| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M        | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | **en_PP-OCRv3_det**                                          | X            | √         | ppocr        | 2.3 M        | **英文**、数字                 | √                    |
+
+PP-OCRv6 的 `multi_PP-OCRv6_det_small` 和 `multi_PP-OCRv6_det_medium` 支持的 `lang_type` 包括：`ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, `german`；`multi_PP-OCRv6_det_tiny` 不支持 `japan`。`multi` 是模型族名称，不是可传入的 `lang_type`。
 
 
 
@@ -439,6 +455,9 @@ print(ocr_out)
 | **number-densenet_lite_136-fc** 🆕                            | √            | √         | cnocr        | 2.7 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
 | **number-densenet_lite_136-gru**  🆕 <br /> ([星球会员](https://t.zsxq.com/FEYZRJQ)专享) | √            | √         | cnocr        | 5.5 M        | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
 | **number-densenet_lite_666-gru_large** 🆕 <br />（购买链接：[B站](https://mall.bilibili.com/neul-next/detailuniversal/detail.html?isMerchant=1&page=detailuniversal_detail&saleType=10&itemsId=11884155&loadingShow=1&noTitleBar=1&msource=merchant_share)、[Lemon Squeezy](https://ocr.lemonsqueezy.com/)） | √            | √         | cnocr        | 55 M         | **纯数字**（仅包含 `0~9` 十个数字） | X                    |
+| multi_PP-OCRv6_tiny                                          | X            | √         | ppocr        | 4.3 M        | 多语种（不含日文）                  | √                    |
+| multi_PP-OCRv6 / multi_PP-OCRv6_small                        | X            | √         | ppocr        | 20 M         | 多语种                              | √                    |
+| multi_PP-OCRv6_medium                                        | X            | √         | ppocr        | 73 M         | 多语种                              | √                    |
 | ch_PP-OCRv5                                                  | X            | √         | ppocr        | 16 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv5_server                                           | X            | √         | ppocr        | 81 M         | 简体中文、英文、数字                | √                    |
 | ch_PP-OCRv4                                                  | X            | √         | ppocr        | 10 M         | 简体中文、英文、数字                | √                    |
@@ -453,6 +472,8 @@ print(ocr_out)
 | korean_PP-OCRv3                                              | X            | √         | ppocr        | 9.4 M         | **韩文**、英文、数字                | √                    |
 | latin_PP-OCRv3                                               | X            | √         | ppocr        | 8.6 M         | **拉丁文**、英文、数字              | √                    |
 | arabic_PP-OCRv3                                              | X            | √         | ppocr        | 8.6 M         | **阿拉伯文**、英文、数字            | √                    |
+
+PP-OCRv6 的 `multi_PP-OCRv6_small`、`multi_PP-OCRv6_medium` 支持的 `lang_type` 包括：`ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, `german`；`multi_PP-OCRv6_tiny` 不支持 `japan`。`multi_PP-OCRv6` 是 `multi_PP-OCRv6_small` 的别名；`multi` 是模型族名称，不是可传入的 `lang_type`。
 
 
 

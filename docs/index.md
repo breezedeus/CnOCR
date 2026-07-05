@@ -33,6 +33,10 @@
 
 CnOCR的目标是**使用简单**。
 
+## 最新更新
+
+**V2.3.3** 支持 PP-OCRv6 多语种 OCR 模型，新增 `multi_PP-OCRv6_tiny`、`multi_PP-OCRv6`、`multi_PP-OCRv6_small`、`multi_PP-OCRv6_medium` 等识别模型，并通过 CnSTD 支持 `multi_PP-OCRv6_det_tiny`、`multi_PP-OCRv6_det_small`、`multi_PP-OCRv6_det_medium` 等检测模型。使用 PP-OCRv6 多语种模型时，可通过 `rec_lang_type` 指定识别语言，通过 `det_more_configs={'lang_type': ...}` 指定检测语言；更多说明见 [使用方法](usage.md) 和 [可用模型](models.md)。
+
 ## 安装简单
 
 嗯，顺利的话一行命令即可完成安装。
@@ -137,6 +141,23 @@ print(out)
 ### 英文识别
 
 虽然中文检测和识别模型也能识别英文，但**专为英文文字训练的检测器和识别器往往精度更高**。如果是纯英文的应用场景，建议使用来自 **ppocr** 的英文检测模型 `det_model_name='en_PP-OCRv3_det'`， 和英文识别模型 `rec_model_name='en_PP-OCRv3'` 。
+
+也可以使用 PP-OCRv6 多语种模型，并显式指定英文：
+
+```python
+from cnocr import CnOcr
+
+img_fp = './docs/examples/en_book1.jpeg'
+ocr = CnOcr(
+    rec_model_name='multi_PP-OCRv6',
+    det_model_name='multi_PP-OCRv6_det_small',
+    rec_lang_type='en',
+    det_more_configs={'lang_type': 'en'},
+)
+out = ocr.ocr(img_fp)
+
+print(out)
+```
 
 ```python
 from cnocr import CnOcr

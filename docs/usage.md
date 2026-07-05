@@ -23,12 +23,13 @@ class CnOcr(object):
         self,
         rec_model_name: str = 'densenet_lite_136-gru',
         *,
-        det_model_name: str = 'ch_PP-OCRv5_det',
+        det_model_name: str = 'multi_PP-OCRv6_det_small',
         cand_alphabet: Optional[Union[Collection, str]] = None,
         context: str = 'cpu',  # ['cpu', 'gpu', 'cuda']
         rec_model_fp: Optional[str] = None,
         rec_model_backend: str = 'onnx',  # ['pytorch', 'onnx']
         rec_vocab_fp: Union[str, Path] = VOCAB_FP,
+        rec_lang_type: Optional[Union[str, LangRec]] = None,
         rec_more_configs: Optional[Dict[str, Any]] = None,
         rec_root: Union[str, Path] = data_dir(),
         det_model_fp: Optional[str] = None,
@@ -43,7 +44,7 @@ class CnOcr(object):
 
 * `rec_model_name`: 识别模型名称。默认为 `densenet_lite_136-gru`。更多可选模型见 [可直接使用的模型](models.md) 。
 
-* `det_model_name`: 检测模型名称。默认为 `ch_PP-OCRv5_det`。更多可选模型见 [可直接使用的模型](models.md) 。
+* `det_model_name`: 检测模型名称。默认为 `multi_PP-OCRv6_det_small`。更多可选模型见 [可直接使用的模型](models.md) 。
 
 * `cand_alphabet`: 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围。取值可以是字符串，如 `"0123456789"`，或者字符列表，如 `["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]`。
 	* `cand_alphabet`也可以初始化后通过类函数 `CnOcr.set_cand_alphabet(cand_alphabet)` 进行设置。这样同一个实例也可以指定不同的`cand_alphabet`进行识别。
@@ -55,6 +56,8 @@ class CnOcr(object):
 
 * `rec_vocab_fp`：识别字符集合的文件路径，即 `label_cn.txt` 文件路径。若训练的自有模型更改了字符集，看通过此参数传入新的字符集文件路径。
 
+* `rec_lang_type`：RapidOCR 识别模型的语言类型。使用 PP-OCRv6 识别模型时，可通过 `rec_lang_type='en'` 指定英文，未指定时默认为 `ch`。
+
 * `rec_more_configs`：`dict`，识别模型初始化时传入的其他参数。具体可参考 [Recognizer](cnocr/recognizer.md) 和 [PPRecognizer](cnocr/pp_recognizer.md) 中的 `__init__` 接口。
 	
 * `rec_root`:  识别模型文件所在的根目录。
@@ -65,15 +68,31 @@ class CnOcr(object):
 
 * `det_model_backend`：'pytorch', or 'onnx'。表明检测时是使用 `PyTorch` 版本模型，还是使用 `ONNX` 版本模型。 **同样的模型，ONNX 版本的预测速度一般是 PyTorch 版本的 2倍左右。** 默认为 'onnx'。
 
-* `det_more_configs`： `dict`，识别模型初始化时传入的其他参数。具体可参考 [CnSTD 文档](https://github.com/breezedeus/cnstd)，或者相关的源代码 [CnSTD/CnStd](https://github.com/breezedeus/cnstd/blob/master/cnstd/cn_std.py) 。
+* `det_more_configs`： `dict`，检测模型初始化时传入的其他参数。具体可参考 [CnSTD 文档](https://github.com/breezedeus/cnstd)，或者相关的源代码 [CnSTD/CnStd](https://github.com/breezedeus/cnstd/blob/master/cnstd/cn_std.py) 。使用 RapidOCR PP-OCRv6 检测模型时，可通过 `det_more_configs={'lang_type': 'en'}` 指定语言类型。
 
 * `det_root`:  检测模型文件所在的根目录。
-	* Linux/Mac下默认值为 `~/.cnstd`，表示模型文件所处文件夹类似 `~/.cnstd/1.2/db_resnet18`。
+	* Linux/Mac下默认值为 `~/.cnstd`，表示模型文件所处文件夹类似 `~/.cnstd/1.2/ppocr/multi_PP-OCRv6_det_small`。
 	* Windows下默认值为 `C:/Users/<username>/AppData/Roaming/cnstd`。
 
 
 
 每个参数都有默认取值，所以可以不传入任何参数值进行初始化：`ocr = CnOcr()`。
+
+PP-OCRv6 多语种模型示例：
+
+```python
+from cnocr import CnOcr
+
+ocr = CnOcr(
+    rec_model_name='multi_PP-OCRv6',
+    det_model_name='multi_PP-OCRv6_det_small',
+    rec_lang_type='en',
+    det_more_configs={'lang_type': 'en'},
+)
+out = ocr.ocr('docs/examples/en_book1.jpeg')
+```
+
+`multi_PP-OCRv6` 是 `multi_PP-OCRv6_small` 的别名；`multi` 是模型族名称，不是可传入的 `lang_type`。
 
 ---
 
@@ -406,6 +425,3 @@ print(out)
 	<figure markdown>
 	![饭店小票识别](./predict-outputs/fapiao.jpeg-result.jpg){: style="width:550px"}
 	</figure>
-
-
-

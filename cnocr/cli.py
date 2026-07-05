@@ -54,6 +54,7 @@ _CONTEXT_SETTINGS = {"help_option_names": ['-h', '--help']}
 logger = set_logger(log_level=logging.INFO)
 
 DEFAULT_MODEL_NAME = 'densenet_lite_136-gru'
+DEFAULT_DET_MODEL_NAME = 'multi_PP-OCRv6_det_small'
 LEGAL_MODEL_NAMES = {
     enc_name + '-' + dec_name
     for enc_name in ENCODER_CONFIGS.keys()
@@ -212,17 +213,29 @@ def visualize_example(example, fp_prefix):
     help='识别模型使用的词表。默认取值为 `None` 表示使用系统设定的词表',
 )
 @click.option(
+    '--rec-lang-type',
+    type=str,
+    default=None,
+    help='RapidOCR识别模型的语言类型；PP-OCRv6支持如 ch、en、japan、french、german 等。默认值为 `None`',
+)
+@click.option(
     '-d',
     '--det-model-name',
     type=str,
-    default='ch_PP-OCRv5_det',
-    help='检测模型名称。默认值为 ch_PP-OCRv5_det',
+    default=DEFAULT_DET_MODEL_NAME,
+    help='检测模型名称。默认值为 %s' % DEFAULT_DET_MODEL_NAME,
 )
 @click.option(
     '--det-model-backend',
     type=click.Choice(['pytorch', 'onnx']),
     default='onnx',
     help='检测模型类型。默认值为 `onnx`',
+)
+@click.option(
+    '--det-lang-type',
+    type=str,
+    default=None,
+    help='RapidOCR检测模型的语言类型；PP-OCRv6支持如 ch、en、japan、french、german 等。默认值为 `None`',
 )
 @click.option(
     '--det-resized-shape', type=int, default=768, help='检测模型输入图像尺寸。默认值为 768',
@@ -264,8 +277,10 @@ def predict(
     rec_model_name,
     rec_model_backend,
     rec_vocab_fp,
+    rec_lang_type,
     det_model_name,
     det_model_backend,
+    det_lang_type,
     det_resized_shape,
     pretrained_model_fp,
     context,
@@ -295,6 +310,10 @@ def predict(
     if len(fp_list) == 0:
         raise ValueError(f'No image is found from "{img_file_or_dir}".')
 
+    det_more_configs = {}
+    if det_lang_type is not None:
+        det_more_configs['lang_type'] = det_lang_type
+
     ocr = CnOcr(
         rec_model_name=rec_model_name,
         rec_model_backend=rec_model_backend,
@@ -302,8 +321,9 @@ def predict(
         det_model_name=det_model_name,
         det_model_backend=det_model_backend,
         rec_model_fp=pretrained_model_fp,
+        rec_lang_type=rec_lang_type,
+        det_more_configs=det_more_configs,
         context=context,
-        # det_more_configs={'rotated_bbox': False},
     )
     ocr_func = ocr.ocr_for_single_line if single_line else ocr.ocr
     ocr_kwargs = {}

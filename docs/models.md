@@ -1,6 +1,6 @@
 # 可用的模型
 
-直接使用的模型都放在 [**cnstd-cnocr-models**](https://huggingface.co/breezedeus/cnstd-cnocr-models) 项目中，可免费下载使用。如果下载太慢，也可以从 [百度云盘](https://pan.baidu.com/s/1RhLBf8DcLnLuGLPrp89hUg?pwd=nocr) 下载， 提取码为 ` nocr`。具体方法可参考 [使用方法](usage.md) 。
+直接使用的模型都放在 [**cnstd-cnocr-models**](https://huggingface.co/breezedeus/cnstd-cnocr-models) 或对应的 `breezedeus/cnocr-ppocr-*`、`breezedeus/cnstd-ppocr-*` HuggingFace 模型仓库中，可免费下载使用。如果下载太慢，也可以从 [百度云盘](https://pan.baidu.com/s/1RhLBf8DcLnLuGLPrp89hUg?pwd=nocr) 下载， 提取码为 ` nocr`。具体方法可参考 [使用方法](usage.md) 。
 
 模型分为两大类，1）来自 **[CnSTD](https://github.com/breezedeus/cnstd)** 的**检测模型**；2）来自 CnOCR 的**识别模型**。
 
@@ -18,13 +18,18 @@
 | db_mobilenet_v3_small                                        | √            | X         | cnocr        | 7.9 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet34                                                  | √            | X         | cnocr        | 86 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | db_resnet18                                                  | √            | X         | cnocr        | 47 M         | 简体中文、繁体中文、英文、数字 | √                    |
+| multi_PP-OCRv6_det_tiny                                      | X            | √         | ppocr        | 1.7 M        | 多语种（不含日文）             | √                    |
+| multi_PP-OCRv6_det_small                                     | X            | √         | ppocr        | 9.5 M        | 多语种                         | √                    |
+| multi_PP-OCRv6_det_medium                                    | X            | √         | ppocr        | 59 M         | 多语种                         | √                    |
 | ch_PP-OCRv5_det                                              | X            | √         | ppocr        | 4.6 M        | 简体中文、繁体中文、英文、数字 | √                    |
-| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M        | 简体中文、繁体中文、英文、数字 | √                    |
+| ch_PP-OCRv5_det_server                                       | X            | √         | ppocr        | 84 M         | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det                                              | X            | √         | ppocr        | 4.5 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv4_det_server                                       | X            | √         | ppocr        | 108 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | ch_PP-OCRv3_det                                              | X            | √         | ppocr        | 2.3 M        | 简体中文、繁体中文、英文、数字 | √                    |
 | **en_PP-OCRv3_det**                                          | X            | √         | ppocr        | 2.3 M        | **英文**、数字                 | √                    |
 
+
+PP-OCRv6 的 `multi_PP-OCRv6_det_small` 和 `multi_PP-OCRv6_det_medium` 支持的 `lang_type` 包括：`ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, `german`；`multi_PP-OCRv6_det_tiny` 不支持 `japan`。`multi` 是模型族名称，不是可传入的 `lang_type`。
 
 > **Note**
 >
@@ -89,6 +94,9 @@ CnOCR 的自有模型从结构上可以分为两阶段：第一阶段是获得oc
 
 | `model_name`          | PyTorch 版本 | ONNX 版本 | 支持语言                 | 是否支持竖排文字识别 | 模型文件大小 |
 | --------------------- | ------------ | --------- | ------------------------ | -------------------- | ------------ |
+| multi_PP-OCRv6_tiny   | X            | √         | 多语种（不含日文）       | √                    | 4.3 M        |
+| multi_PP-OCRv6 / multi_PP-OCRv6_small | X | √       | 多语种                   | √                    | 20 M         |
+| multi_PP-OCRv6_medium | X            | √         | 多语种                   | √                    | 73 M         |
 | ch_PP-OCRv5           | X            | √         | 简体中文、英文、数字     | √                    | 16 M         | 
 | ch_PP-OCRv5_server    | X            | √         | 简体中文、英文、数字     | √                    | 81 M         | 
 | ch_PP-OCRv4           | X            | √         | 简体中文、英文、数字     | √                    | 10 M         | 
@@ -104,4 +112,6 @@ CnOCR 的自有模型从结构上可以分为两阶段：第一阶段是获得oc
 | latin_PP-OCRv3        | X            | √         | **拉丁文**、英文、数字   | √                    | 8.6 M         |
 | arabic_PP-OCRv3       | X            | √         | **阿拉伯文**、英文、数字 | √                    | 8.6 M         |
 
-更多模型可参考 [PaddleOCR/models_list.md](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/doc/doc_ch/models_list.md) 。如有其他外语（如日、韩等）识别需求，可在 **知识星球** [**CnOCR/CnSTD私享群**](https://t.zsxq.com/FEYZRJQ) 中向作者提出建议。
+PP-OCRv6 的 `multi_PP-OCRv6_small`、`multi_PP-OCRv6_medium` 支持的 `lang_type` 包括：`ch`, `chinese_cht`, `en`, `japan`, `af`, `az`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `es`, `et`, `eu`, `fi`, `fr`, `ga`, `gl`, `hr`, `hu`, `id`, `is`, `it`, `ku`, `la`, `lb`, `lt`, `lv`, `mi`, `ms`, `mt`, `nl`, `no`, `oc`, `pl`, `pt`, `qu`, `rm`, `ro`, `rs_latin`, `sk`, `sl`, `sq`, `sv`, `sw`, `tl`, `tr`, `uz`, `vi`, `french`, `german`；`multi_PP-OCRv6_tiny` 不支持 `japan`。`multi_PP-OCRv6` 是 `multi_PP-OCRv6_small` 的别名；`multi` 是模型族名称，不是可传入的 `lang_type`。
+
+更多模型可参考 [PaddleOCR/models_list.md](https://github.com/PaddlePaddle/PaddleOCR/blob/release%2F2.5/doc/doc_ch/models_list.md) 。如有其他外语识别需求，可在 **知识星球** [**CnOCR/CnSTD私享群**](https://t.zsxq.com/FEYZRJQ) 中向作者提出建议。

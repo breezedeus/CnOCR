@@ -15,9 +15,14 @@ Options:
   -b, --rec-model-backend [pytorch|onnx]
                                   识别模型类型。默认值为 `onnx`
   -v, --rec-vocab-fp TEXT         识别模型使用的词表。默认取值为 `None` 表示使用系统设定的词表
-  -d, --det-model-name TEXT       检测模型名称。默认值为 ch_PP-OCRv5_det
+  --rec-lang-type TEXT            RapidOCR识别模型的语言类型；PP-OCRv6支持如
+                                  ch、en、japan、french、german 等。默认值为 `None`
+  -d, --det-model-name TEXT       检测模型名称。默认值为 multi_PP-OCRv6_det_small
   --det-model-backend [pytorch|onnx]
                                   检测模型类型。默认值为 `onnx`
+  --det-lang-type TEXT            RapidOCR检测模型的语言类型；PP-OCRv6支持如
+                                  ch、en、japan、french、german 等。默认值为 `None`
+  --det-resized-shape INTEGER     检测模型输入图像尺寸。默认值为 768
   -p, --pretrained-model-fp TEXT  识别模型使用训练好的模型。默认为 `None`，表示使用系统自带的预训练模型
   -c, --context TEXT              使用cpu还是 `gpu` 运行代码，也可指定为特定gpu，如`cuda:0`。默认为
                                   `cpu`
@@ -26,6 +31,7 @@ Options:
                                   再进行识别
   --draw-results-dir TEXT         画出的检测与识别效果图所存放的目录；取值为 `None` 表示不画图
   --draw-font-path TEXT           画出检测与识别效果图时使用的字体文件
+  --show-details                  是否打印识别结果详情。默认值为 `False`
   --verbose                       是否打印详细日志信息。默认值为 `False`
   -h, --help                      Show this message and exit.
 ```
@@ -35,6 +41,14 @@ Options:
 ```bash
 $ cnocr predict -i docs/examples/rand_cn1.png -s
 ```
+
+PP-OCRv6 多语种模型可通过 `--rec-lang-type` 和 `--det-lang-type` 指定语言类型：
+
+```bash
+$ cnocr predict -m multi_PP-OCRv6 -d multi_PP-OCRv6_det_small --rec-lang-type en --det-lang-type en -i docs/examples/en_book1.jpeg
+```
+
+`multi_PP-OCRv6` 是 `multi_PP-OCRv6_small` 的别名；`multi` 是模型族名称，不是可传入的 `lang_type`。
 
 具体使用也可参考文件 [Makefile](https://github.com/breezedeus/cnocr/blob/master/Makefile) 。
 

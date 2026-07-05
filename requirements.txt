@@ -35,7 +35,7 @@ click==8.1.7
     #   -r requirements.in
     #   cnstd
     #   wandb
-cnstd==1.2.7.1
+cnstd==1.2.8
     # via -r requirements.in
 coloredlogs==15.0.1
     # via onnxruntime
@@ -238,7 +238,7 @@ pyyaml==6.0.2
     #   wandb
 qudida==0.0.4
     # via albumentations
-rapidocr==3.2.0
+rapidocr==3.9.1
     # via
     #   -r requirements.in
     #   cnstd
